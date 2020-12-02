@@ -15,6 +15,11 @@ public class Cell {
         state = 0;
     }
     
+    public void draw(Graphics graphics){
+        graphics.setColor(STATE_COLORS[state]);
+        graphics.fillRect(x + 1, y + 1, size - 1, size -1);
+    }
+    
     
     public boolean isOn(){
         return state == 1;
