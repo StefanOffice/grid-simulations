@@ -15,5 +15,6 @@ public class Launcher {
         frame.add(game.cellGridPanel, BorderLayout.CENTER);
         frame.pack();
         frame.setVisible(true);
+        game.runGame();
     }
 }

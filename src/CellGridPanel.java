@@ -49,4 +49,29 @@ public class CellGridPanel extends JPanel {
     public Cell getCell(int row, int column) {
         return cells[row][column];
     }
+    
+    public int countNeighbours(int cellRow, int cellColumn){
+        int count = 0;
+        for (int row = cellRow - 1 ; row <= cellRow + 1; row++) {
+            for (int column = cellColumn - 1; column <= cellColumn + 1; column++) {
+                //don't count yourself as the neighbour
+                if(row == cellRow && column == cellColumn)
+                    continue;
+                
+                if(isNeighbourOn(row,column))
+                    count++;
+            }
+        }
+        
+        return count;
+    }
+    
+    private boolean isNeighbourOn(int r, int c){
+        if(r < 0 || r >= getNumOfRows() || c < 0 || c >= getNumOfColumns())
+            return false;
+        
+        return cells[r][c].isOn();
+    }
+    
+    
 }
