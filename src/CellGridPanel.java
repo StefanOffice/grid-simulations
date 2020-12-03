@@ -29,4 +29,9 @@ public class CellGridPanel extends JPanel {
             }
         }
     }
+    
+    
+    public Cell getCell(int row, int column) {
+        return cells[row][column];
+    }
 }
