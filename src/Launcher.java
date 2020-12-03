@@ -9,7 +9,7 @@ public class Launcher {
         
         JFrame frame = new JFrame(title);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        frame.setResizable(false);
+        frame.setResizable(false);
         
         frame.setLayout(new BorderLayout());
         frame.add(game.cellGridPanel, BorderLayout.CENTER);

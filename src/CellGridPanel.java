@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 public class CellGridPanel extends JPanel {
     
     private final Cell[][] cells;
+    public int cellSize;
     
     public CellGridPanel(int numRows, int numColumns, int cellSize){
         //create the cell grid based on parameters
@@ -19,6 +20,7 @@ public class CellGridPanel extends JPanel {
         }
         
         setSize(numColumns*cellSize, numRows*cellSize);
+        this.cellSize = cellSize;
     }
     
     @Override
@@ -28,6 +30,19 @@ public class CellGridPanel extends JPanel {
                 currentCell.draw(g);
             }
         }
+    }
+    
+    @Override
+    public Dimension getPreferredSize() {
+        return new Dimension(getNumOfColumns() * cellSize + 2, getNumOfRows() * cellSize + 2);
+    }
+    
+    public int getNumOfRows(){
+        return cells.length;
+    }
+    
+    public int getNumOfColumns(){
+        return cells[0].length;
     }
     
     
