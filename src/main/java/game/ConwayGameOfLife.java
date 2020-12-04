@@ -1,7 +1,9 @@
+package main.java.game;
 
+import main.java.component.Cell;
+import main.java.component.CellGridPanel;
 
-public class ConwayGameOfLife {
-    public CellGridPanel cellGridPanel;
+public class ConwayGameOfLife extends AbstractGridGame{
     
     public ConwayGameOfLife(){
         //hard-coding sample cells to test rendering
@@ -16,6 +18,12 @@ public class ConwayGameOfLife {
         cellGridPanel.getCell(3,4).turnOn();
         cellGridPanel.getCell(4,4).turnOn();
         cellGridPanel.getCell(5,4).turnOn();
+        title = "Conway's Game of Life";
+    }
+    
+    public ConwayGameOfLife(int numRows, int numColumns, int cellSize){
+        super(numRows, numColumns, cellSize);
+        title = "Conway's Game of Life";
     }
     
     private int[][] countNeighbors(){
@@ -46,6 +54,7 @@ public class ConwayGameOfLife {
     }
     
     //simulates one round of the game
+    @Override
     public void update(){
         int[][] counts = countNeighbors();
         updateGrid(counts);

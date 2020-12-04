@@ -1,3 +1,5 @@
+package main.java.component;
+
 import java.awt.*;
 
 public class Cell {

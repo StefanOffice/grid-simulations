@@ -1,6 +1,8 @@
+package main.java.component;
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
+
 //extend JPanel to get all the functionality from it
 //plus add a multidimensional array of cells
 public class CellGridPanel extends JPanel {

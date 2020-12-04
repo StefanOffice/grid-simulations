@@ -1,11 +1,15 @@
+package main.java.launcher;
+
+import main.java.game.ConwayGameOfLife;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class Launcher {
     
     public static void main(String[] args) {
-        String title = "Welcome to Conway's Game Of Life!";
         ConwayGameOfLife game = new ConwayGameOfLife();
+        String title = "Welcome to " + game.getTitle() + "!";
         
         JFrame frame = new JFrame(title);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
