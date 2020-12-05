@@ -1,6 +1,7 @@
 package main.java.launcher;
 
 import main.java.game.ConwayGameOfLife;
+import main.java.game.LangtonsAntTuringMachine;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,7 +9,8 @@ import java.awt.*;
 public class Launcher {
     
     public static void main(String[] args) {
-        ConwayGameOfLife game = new ConwayGameOfLife();
+//        ConwayGameOfLife game = new ConwayGameOfLife();
+        LangtonsAntTuringMachine game = new LangtonsAntTuringMachine(200, 200, 4);
         String title = "Welcome to " + game.getTitle() + "!";
         
         JFrame frame = new JFrame(title);

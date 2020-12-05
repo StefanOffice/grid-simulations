@@ -60,18 +60,4 @@ public class ConwayGameOfLife extends AbstractGridGame{
         updateGrid(counts);
     }
     
-    public void runGame() {
-        while (true) {
-            //run one round
-            this.update();
-            cellGridPanel.repaint();
-            //wait a bit
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException ignored){}
-        }
-    }
-    
-    
-    
 }

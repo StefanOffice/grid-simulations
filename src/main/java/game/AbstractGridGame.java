@@ -22,10 +22,10 @@ public abstract class AbstractGridGame {
     protected AbstractGridGame(int numRows, int numColumns, int cellSize) {
         
         //number of rows and columns bounds
-        numRows = Math.min(Math.max(numRows, MIN_ROWS), MAX_ROWS);
-        numColumns = Math.min(Math.max(numColumns, MIN_COLUMNS), MAX_COLUMNS);
-        //set cell size bound
-        cellSize = Math.min(Math.max(cellSize, MIN_CELL_SIZE), MAX_CELL_SIZE);
+//        numRows = Math.min(Math.max(numRows, MIN_ROWS), MAX_ROWS);
+//        numColumns = Math.min(Math.max(numColumns, MIN_COLUMNS), MAX_COLUMNS);
+//        //set cell size bound
+//        cellSize = Math.min(Math.max(cellSize, MIN_CELL_SIZE), MAX_CELL_SIZE);
         
         cellGridPanel = new CellGridPanel(numRows, numColumns, cellSize);
     }
@@ -40,4 +40,17 @@ public abstract class AbstractGridGame {
     public String getTitle() {
         return title;
     }
+    
+    public void runGame() {
+        while (true) {
+            //run one round
+            this.update();
+            cellGridPanel.repaint();
+            //wait a bit
+            try {
+                Thread.sleep(5);
+            } catch (InterruptedException ignored){}
+        }
+    }
+    
 }
