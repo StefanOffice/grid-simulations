@@ -2,16 +2,16 @@ package main.java.component;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
-//extend JPanel to get all the functionality from it
-//plus add a multidimensional array of cells
 public class CellGridPanel extends JPanel {
     
     private final Cell[][] cells;
     public int cellSize;
+    //to improve the efficiency of redrawing
+    BufferedImage bufferedImage;
     
     public CellGridPanel(int numRows, int numColumns, int cellSize){
-        //create the cell grid based on parameters
         cells = new Cell[numRows][numColumns];
         for (int row = 0; row < numRows; row++) {
             int cellY = row * cellSize;
@@ -23,33 +23,44 @@ public class CellGridPanel extends JPanel {
         
         setSize(numColumns*cellSize, numRows*cellSize);
         this.cellSize = cellSize;
+        bufferedImage = new BufferedImage(getNumOfColumns() * cellSize, getNumOfRows()*cellSize, BufferedImage.TYPE_3BYTE_BGR);
+        drawToBuffer();
     }
     
-    @Override
-    public void paint(Graphics g) {
-        for(Cell[] currentRow : cells){
-            for(Cell currentCell : currentRow){
-                currentCell.draw(g);
+    public void drawToBuffer(){
+        Graphics graphics = bufferedImage.getGraphics();
+        
+        //used to check if the current cell has the same state as the previous cell
+        int prevCellState = - 1;
+        
+        for(Cell[] row : cells){
+            for(Cell cell : row){
+                //if the state is same as the previous cell there is no need to call graphics.setColor,
+                // just use the color used on previous cell
+                if(cell.getState() != prevCellState)
+                    graphics.setColor(Cell.STATE_COLORS[cell.getState()]);
+                
+                cell.draw(graphics);
+                prevCellState = cell.getState();
             }
         }
+        graphics.dispose();
     }
     
     @Override
-    public Dimension getPreferredSize() {
-        return new Dimension(getNumOfColumns() * cellSize + 2, getNumOfRows() * cellSize + 2);
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        drawToBuffer();
+        g.drawImage(bufferedImage, 0, 0, null);
+        g.dispose();
     }
     
-    public int getNumOfRows(){
-        return cells.length;
-    }
-    
-    public int getNumOfColumns(){
-        return cells[0].length;
-    }
-    
-    
-    public Cell getCell(int row, int column) {
-        return cells[row][column];
+    public void clear(){
+        for(Cell[] row : cells){
+            for(Cell cell : row){
+                cell.clear();
+            }
+        }
     }
     
     public int countNeighbours(int cellRow, int cellColumn){
@@ -75,5 +86,24 @@ public class CellGridPanel extends JPanel {
         return cells[r][c].isOn();
     }
     
+    @Override
+    public Dimension getPreferredSize() {
+        return new Dimension(getNumOfColumns() * cellSize + 1, getNumOfRows() * cellSize + 1);
+    }
     
+    public int getNumOfRows(){
+        return cells.length;
+    }
+    
+    public int getNumOfColumns(){
+        return cells[0].length;
+    }
+    
+    public Cell getCellByPosition(int row, int column){
+        return cells[row][column];
+    }
+    
+    public Cell getCellByCoordinates(int x, int y){
+        return getCellByPosition(y / cellSize, x / cellSize);
+    }
 }
